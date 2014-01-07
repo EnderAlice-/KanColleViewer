@@ -28,7 +28,7 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Fleets
 				return "艦隊に入渠中の艦娘がいます。";
 			}
 			var remaining = dock.CompleteTime.Value.LocalDateTime - DateTimeOffset.Now - TimeSpan.FromMinutes(1.0);
-			if (remaining.CompareTo(TimeSpan.Zero) < 0)
+			if (remaining < TimeSpan.Zero)
 			{
 				remaining = TimeSpan.Zero;
 			}
