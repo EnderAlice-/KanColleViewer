@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Model;
-using Grabacr07.KanColleViewer.ViewModels.Docks;
 using Grabacr07.KanColleWrapper;
 using Livet;
 using Livet.EventListeners;
@@ -57,7 +56,7 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Docks
 
 		public RepairyardViewModel()
 		{
-			this.Name = Properties.Resources.ViewModels_Repairyard;
+			this.Name = Properties.Resources.Repairyard;
 
 			this.CompositeDisposable.Add(new PropertyChangedEventListener(KanColleClient.Current.Homeport.Repairyard)
 			{
