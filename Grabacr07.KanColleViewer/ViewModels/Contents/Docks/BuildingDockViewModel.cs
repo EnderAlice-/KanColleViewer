@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Model;
+using Grabacr07.KanColleViewer.Properties;
 using Grabacr07.KanColleWrapper.Models;
 using Livet;
 using Livet.EventListeners;
@@ -85,16 +86,34 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Docks
 			this.source = source;
 			this.CompositeDisposable.Add(new PropertyChangedEventListener(source, (sender, args) => this.RaisePropertyChanged(args.PropertyName)));
 
-			if (Helper.IsWindows8OrGreater)
+			if (Toast.IsSupported)
 			{
 				source.Completed += (sender, args) =>
 				{
 					if (this.IsNotifyCompleted)
 					{
 						Toast.Show(
-							"建造完了",
-							string.Format("工廠第 {0} ドックでの{1}の建造が完了しました。", this.Id, this.CanDisplayShipName ? "「" + this.Ship + "」" : "艦娘"),
-							() => App.ViewModelRoot.Messenger.Raise(new WindowActionMessage(WindowAction.Active, "Window/Activate")));
+							Resources.Dockyard_NotificationMessage_Title,
+							string.Format(
+								Resources.Dockyard_NotificationMessage,
+								this.Id,
+								this.CanDisplayShipName ? this.Ship : Resources.Common_ShipGirl),
+							() => App.ViewModelRoot.Activate());
+					}
+				};
+			}
+			else
+			{
+				source.Completed += (sender, args) =>
+				{
+					if (this.IsNotifyCompleted)
+					{
+						NotifyIconWrapper.Show(
+							Resources.Dockyard_NotificationMessage_Title,
+							string.Format(
+								Resources.Dockyard_NotificationMessage,
+								this.Id,
+								this.CanDisplayShipName ? this.Ship : Resources.Common_ShipGirl));
 					}
 				};
 			}

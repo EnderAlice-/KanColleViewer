@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Model;
+using Grabacr07.KanColleViewer.Properties;
 using Grabacr07.KanColleWrapper.Models;
 using Livet;
 using Livet.EventListeners;
@@ -65,16 +66,28 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Fleets
 			this.source = expedition;
 			this.CompositeDisposable.Add(new PropertyChangedEventListener(expedition, (sender, args) => this.RaisePropertyChanged(args.PropertyName)));
 
-			if (Helper.IsWindows8OrGreater)
+			if (Toast.IsSupported)
 			{
 				expedition.Returned += (sender, args) =>
 				{
 					if (this.IsNotifyReturned)
 					{
 						Toast.Show(
-							"遠征完了",
-							"「" + args.FleetName + "」が遠征から帰投しました。",
-							() => App.ViewModelRoot.Messenger.Raise(new WindowActionMessage(WindowAction.Active, "Window/Activate")));
+							Resources.Expedition_NotificationMessage_Title,
+							string.Format(Resources.Expedition_NotificationMessage, args.FleetName),
+							() => App.ViewModelRoot.Activate());
+					}
+				};
+			}
+			else
+			{
+				expedition.Returned += (sender, args) =>
+				{
+					if (this.IsNotifyReturned)
+					{
+						NotifyIconWrapper.Show(
+							Resources.Expedition_NotificationMessage_Title,
+							string.Format(Resources.Expedition_NotificationMessage, args.FleetName));
 					}
 				};
 			}
