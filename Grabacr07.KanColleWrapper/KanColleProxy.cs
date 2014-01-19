@@ -82,6 +82,7 @@ namespace Grabacr07.KanColleWrapper
 		{
 			FiddlerApplication.Startup(proxy, false, true);
 			FiddlerApplication.BeforeRequest += this.SetUpstreamProxyHandler;
+
 			SetIESettings("localhost:" + proxy);
 
 			this.compositeDisposable.Add(this.connectableSessionSource.Connect());
@@ -116,7 +117,6 @@ namespace Grabacr07.KanColleWrapper
 			NativeMethods.InternetSetOption(IntPtr.Zero, INTERNET_OPTION_PROXY, proxyInfoPtr, proxyInfoSize);
 		}
 
-
 		/// <summary>
 		/// Fiddler からのリクエスト発行時にプロキシを挟む設定を行います。
 		/// </summary>
@@ -125,7 +125,7 @@ namespace Grabacr07.KanColleWrapper
 		{
 			var useGateway = !string.IsNullOrEmpty(this.UpstreamProxyHost) && this.UseProxyOnConnect;
 			if (!useGateway || (IsSessionSSL(requestingSession) && !this.UseProxyOnSSLConnect)) return;
-			
+
 			var gateway = this.UpstreamProxyHost.Contains(":")
 				// IPv6 アドレスをプロキシホストにした場合はホストアドレス部分を [] で囲う形式にする。
 				? string.Format("[{0}]:{1}", this.UpstreamProxyHost, this.UpstreamProxyPort)
