@@ -184,7 +184,7 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 		{
 			var list = this.homeport.Ships
 				.Where(x => this.ShipTypes.Where(t => t.IsSelected).Any(t => x.Value.Info.ShipType.Id == t.Id))
-				.Where(x => !this.WithoutLv1Ship || x.Value.Level != 1)
+				.Where(x => !this.WithoutLv1Ship || x.Value.Level > 1)
 				.Where(x => !this.WithoutMaxModernizedShip || !x.Value.IsMaxModernized)
 				.Select(x => new ShipViewModel(x.Value));
 

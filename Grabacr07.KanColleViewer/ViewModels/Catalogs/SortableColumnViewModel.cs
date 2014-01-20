@@ -141,14 +141,14 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 			{
 				return list.OrderByDescending(x => x.Ship.Condition)
 					.ThenBy(x => x.Ship.Info.ShipType.Id)
-					.ThenBy(x => x.Ship.Level)
+					.ThenByDescending(x => x.Ship.Exp)
 					.ThenBy(x => x.Ship.Info.SortId);
 			}
 			if (this.Direction == SortDirection.Descending)
 			{
 				return list.OrderBy(x => x.Ship.Condition)
 					.ThenByDescending(x => x.Ship.Info.ShipType.Id)
-					.ThenByDescending(x => x.Ship.Level)
+					.ThenBy(x => x.Ship.Exp)
 					.ThenByDescending(x => x.Ship.Info.SortId);
 			}
 			return list;
