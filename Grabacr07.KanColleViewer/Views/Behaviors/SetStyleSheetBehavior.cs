@@ -8,6 +8,7 @@ using System.Windows.Interactivity;
 using System.Windows.Navigation;
 using Grabacr07.Desktop.Metro;
 using Grabacr07.KanColleViewer.Properties;
+using MetroRadiance.Core;
 using mshtml;
 
 namespace Grabacr07.KanColleViewer.Views.Behaviors
@@ -47,17 +48,20 @@ namespace Grabacr07.KanColleViewer.Views.Behaviors
 			}
 
 			var target = gameFrame.document as HTMLDocument;
-			if (target != null)
+			if (target == null) return;
+
+			target.createStyleSheet().cssText = Properties.Settings.Default.OverrideStyleSheet;
+
+			var dpi = this.AssociatedObject.GetSystemDpi();
+
+			var window = Window.GetWindow(this.AssociatedObject);
+			if (window != null && window.WindowState == WindowState.Normal)
 			{
-				target.createStyleSheet().cssText = Properties.Settings.Default.OverrideStyleSheet;
-
-				var dpi = this.AssociatedObject.GetSystemDpi();
-
-				var window = Window.GetWindow(this.AssociatedObject);
-				if (window != null) window.SizeToContent = SizeToContent.WidthAndHeight;
-				this.AssociatedObject.Width = 800 / dpi.ScaleX;
-				this.AssociatedObject.Height = 480 / dpi.ScaleY;
+				window.SizeToContent = SizeToContent.Width;
 			}
+
+			this.AssociatedObject.Width = 800 / dpi.ScaleX;
+			this.AssociatedObject.Height = 480 / dpi.ScaleY;
 		}
 	}
 }
