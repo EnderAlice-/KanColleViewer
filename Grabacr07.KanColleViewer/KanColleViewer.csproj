@@ -156,7 +156,7 @@
     <Compile Include="ViewModels\Contents\Fleets\PlaneViewModel.cs" />
     <Compile Include="ViewModels\Contents\Fleets\RepairingBarViewModel.cs" />
     <Compile Include="ViewModels\Contents\Fleets\TimerViewModel.cs" />
-    <Compile Include="ViewModels\Contents\GeneralViewModel.cs" />
+    <Compile Include="ViewModels\Contents\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Contents\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Contents\QuestViewModel.cs" />
     <Compile Include="ViewModels\BindableTextViewModel.cs" />
@@ -195,8 +195,8 @@
     <Compile Include="Views\Catalogs\SlotItemCatalogWindow.xaml.cs">
       <DependentUpon>SlotItemCatalogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Contents\General.xaml.cs">
-      <DependentUpon>General.xaml</DependentUpon>
+    <Compile Include="Views\Contents\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contents\Homeport.xaml.cs">
       <DependentUpon>Homeport.xaml</DependentUpon>
@@ -241,6 +241,10 @@
     <Compile Include="Win32\IServiceProvider.cs" />
     <Compile Include="Win32\RECT.cs" />
     <Compile Include="Win32\ShellHelpers.cs" />
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Controls.ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -325,7 +329,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Contents\General.xaml">
+    <Page Include="Views\Contents\Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
