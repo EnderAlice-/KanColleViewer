@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using Grabacr07.KanColleViewer.Model;
-using Grabacr07.KanColleViewer.ViewModels.Contents;
+using Grabacr07.KanColleViewer.Models;
 using Grabacr07.KanColleViewer.ViewModels.Messages;
 using Grabacr07.KanColleWrapper;
 using Livet;
@@ -24,6 +19,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 		private MainContentViewModel mainContent;
 
 		public NavigatorViewModel Navigator { get; private set; }
+		public SettingsViewModel Settings { get; private set; }
 
 		#region Mode 変更通知プロパティ
 
@@ -118,12 +114,12 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		public bool TopMost
 		{
-			get { return Settings.Current.TopMost; }
+			get { return Models.Settings.Current.TopMost; }
 			set
 			{
-				if (Settings.Current.TopMost != value)
+				if (Models.Settings.Current.TopMost != value)
 				{
-					Settings.Current.TopMost = value;
+					Models.Settings.Current.TopMost = value;
 					this.RaisePropertyChanged();
 				}
 			}
@@ -136,6 +132,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 		{
 			this.Title = App.ProductInfo.Title;
 			this.Navigator = new NavigatorViewModel();
+			this.Settings = new SettingsViewModel();
 
 			this.CompositeDisposable.Add(new PropertyChangedEventListener(StatusService.Current)
 			{

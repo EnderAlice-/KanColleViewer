@@ -9,13 +9,22 @@ using Grabacr07.KanColleViewer.Win32;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using MS.WindowsAPICodePack.Internal;
 
-namespace Grabacr07.KanColleViewer.Model.Internal
+namespace Grabacr07.KanColleViewer.Models.Internal
 {
 	/// <summary>
 	/// トーストを使用した通知機能を提供します。
 	/// </summary>
 	internal class Windows8Notifier : IWindowsNotifier
 	{
+		#region static members
+
+		public static bool IsSupported
+		{
+			get { return Toast.IsSupported; }
+		}
+
+		#endregion
+
 		public void Initialize()
 		{
 			try
