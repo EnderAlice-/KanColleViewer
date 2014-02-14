@@ -18,6 +18,7 @@
 				   xmlns:contents="clr-namespace:Grabacr07.KanColleViewer.Views.Contents"
 				   xmlns:catalogs="clr-namespace:Grabacr07.KanColleViewer.Views.Catalogs"
 				   xmlns:contentsVm="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents"
+				   xmlns:converters="clr-namespace:Grabacr07.KanColleViewer.Views.Converters"
 				   mc:Ignorable="d"
 				   d:DataContext="{d:DesignInstance viewModels:ShipCatalogWindowViewModel}"
 				   Title="{Binding Title}"
@@ -316,12 +317,15 @@
 									<DataTemplate>
 										<TextBlock FontSize="9"
 												   Margin="0,3">
+											<TextBlock.Resources>
+												<converters:ExperiencePointConverter x:Key="ExperiencePointConverter"/>
+											</TextBlock.Resources>
 											<Run Text="Lv." />
 											<Run Text="{Binding Ship.Level, Mode=OneWay}"
 												 FontSize="12"
 												 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
 											<Run Text="" />
-											<Run Text="{Binding Ship.ExpForNextLevel, StringFormat=Next:{0}, Mode=OneWay}" />
+											<Run Text="{Binding Ship.ExpForNextLevel, StringFormat=Next:{0}, Mode=OneWay, Converter={StaticResource ExperiencePointConverter}}" />
 										</TextBlock>
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>

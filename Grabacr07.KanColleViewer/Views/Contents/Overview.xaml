@@ -114,11 +114,14 @@
 										</TextBlock>
 										<TextBlock Grid.Column="1"
 												   Margin="12,0,0,0">
+											<TextBlock.Resources>
+												<converters:ExperiencePointConverter x:Key="ExperiencePointConverter"/>
+											</TextBlock.Resources>
 											<Run Text="Lv." />
 											<Run Text="{Binding Ship.Level, Mode=OneWay}"
 												 Style="{DynamicResource PickupTextElementStyleKey}" />
 											<LineBreak />
-											<Run Text="{Binding Ship.ExpForNextLevel, StringFormat=Next: {0}, Mode=OneWay}"
+											<Run Text="{Binding Ship.ExpForNextLevel, StringFormat=Next: {0}, Mode=OneWay, Converter={StaticResource ExperiencePointConverter}}"
 												 FontSize="9" />
 										</TextBlock>
 										<Grid Grid.Column="2"

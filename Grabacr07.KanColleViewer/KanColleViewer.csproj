@@ -221,6 +221,7 @@
     <Compile Include="Views\Contents\Expeditions.xaml.cs">
       <DependentUpon>Expeditions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converters\ExperiencePointConverter.cs" />
     <Compile Include="Views\Converters\QuestCategoryToColorConverter.cs" />
     <Compile Include="Views\Dev\DebugTab.xaml.cs">
       <DependentUpon>DebugTab.xaml</DependentUpon>
