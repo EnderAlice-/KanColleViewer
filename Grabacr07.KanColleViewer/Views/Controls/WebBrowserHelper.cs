@@ -5,7 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
+using Grabacr07.KanColleViewer.Models;
+using Grabacr07.KanColleViewer.Properties;
+using SHDocVw;
+using IServiceProvider = Grabacr07.KanColleViewer.Win32.IServiceProvider;
+using WebBrowser = System.Windows.Controls.WebBrowser;
 
 namespace Grabacr07.KanColleViewer.Views.Controls
 {
@@ -45,6 +49,57 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
+			}
+		}
+
+		#endregion
+
+		#region ZoomFactor 添付プロパティ
+
+		public static readonly DependencyProperty ZoomFactorProperty = DependencyProperty.RegisterAttached(
+			"ZoomFactor", typeof(int), typeof(WebBrowserHelper), new PropertyMetadata(100, ZoomFactorChangedCallback));
+
+		public static void SetZoomFactor(WebBrowser browser, int value)
+		{
+			browser.SetValue(ZoomFactorProperty, value);
+		}
+
+		public static int GetZoomFactor(WebBrowser browser)
+		{
+			return (int)browser.GetValue(ZoomFactorProperty);
+		}
+
+		private static void ZoomFactorChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var browser = d as WebBrowser;
+			if (browser == null) return;
+			if (!(e.NewValue is int)) return;
+
+			var zoomFactor = (int)e.NewValue;
+
+			if (zoomFactor < 10 || zoomFactor > 1000)
+			{
+				StatusService.Current.Notify(string.Format(Resources.ZoomAction_OutOfRange, zoomFactor));
+				return;
+			}
+
+			try
+			{
+				var provider = browser.Document as IServiceProvider;
+				if (provider == null) return;
+
+				object ppvObject;
+				provider.QueryService(typeof(IWebBrowserApp).GUID, typeof(IWebBrowser2).GUID, out ppvObject);
+				var webBrowser = ppvObject as IWebBrowser2;
+				if (webBrowser == null) return;
+
+				object pvaIn = zoomFactor;
+				webBrowser.ExecWB(OLECMDID.OLECMDID_OPTICAL_ZOOM, OLECMDEXECOPT.OLECMDEXECOPT_DODEFAULT, ref pvaIn);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+				StatusService.Current.Notify(string.Format(Resources.ZoomAction_ZoomFailed, ex.Message));
 			}
 		}
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grabacr07.KanColleViewer.Models.Data.Xml;
 using Livet;
+using MetroRadiance.Core;
 
 namespace Grabacr07.KanColleViewer.Models
 {
@@ -331,6 +332,25 @@ namespace Grabacr07.KanColleViewer.Models
 				if (this._Culture != value)
 				{
 					this._Culture = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region BrowserZoomFactor 変更通知プロパティ
+
+		private int _BrowserZoomFactor = 100;
+
+		public int BrowserZoomFactor
+		{
+			get { return this._BrowserZoomFactor; }
+			set
+			{
+				if (this._BrowserZoomFactor != value)
+				{
+					this._BrowserZoomFactor = value;
 					this.RaisePropertyChanged();
 				}
 			}
