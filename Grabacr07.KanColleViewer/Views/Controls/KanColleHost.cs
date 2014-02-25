@@ -21,8 +21,8 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 	public class KanColleHost : Control
 	{
 		private const string PART_ContentHost = "PART_ContentHost";
-		private readonly static Size kanColleSize = new Size(800.0, 480.0);
-		private readonly static Size browserSize = new Size(960.0, 572.0);
+		private static readonly Size kanColleSize = new Size(800.0, 480.0);
+		private static readonly Size browserSize = new Size(960.0, 572.0);
 
 		static KanColleHost()
 		{
@@ -31,6 +31,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 
 		private ScrollViewer scrollViewer;
 		private bool styleSheetApplied;
+		private Dpi? systemDpi;
 
 		#region WebBrowser 依存関係プロパティ
 
@@ -39,6 +40,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			get { return (WebBrowser)this.GetValue(WebBrowserProperty); }
 			set { this.SetValue(WebBrowserProperty, value); }
 		}
+
 		public static readonly DependencyProperty WebBrowserProperty =
 			DependencyProperty.Register("WebBrowser", typeof(WebBrowser), typeof(KanColleHost), new UIPropertyMetadata(null, WebBrowserPropertyChangedCallback));
 
@@ -74,6 +76,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			get { return (double)this.GetValue(ZoomFactorProperty); }
 			set { this.SetValue(ZoomFactorProperty, value); }
 		}
+
 		/// <summary>
 		/// <see cref="ZoomFactor"/> 依存関係プロパティを識別します。
 		/// </summary>
@@ -88,7 +91,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		}
 
 		#endregion
-		
+
 
 		public KanColleHost()
 		{
@@ -111,28 +114,23 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		{
 			if (this.WebBrowser == null) return;
 
-			if (this.ZoomFactor.Equals(0.0))
-			{
-				var dpi = this.GetSystemDpi();
-				if (dpi == null) return;
+			var dpi = this.systemDpi ?? (this.systemDpi = this.GetSystemDpi()) ?? Dpi.Default;
+			var zoomFactor = dpi.ScaleX + (this.ZoomFactor - 1.0);
+			var percentage = (int)(zoomFactor * 100);
 
-				this.ZoomFactor = dpi.Value.ScaleX;
-				return;
-			}
-
-			ApplyZoomFactor(this.WebBrowser, (int)(this.ZoomFactor * 100));
+			ApplyZoomFactor(this.WebBrowser, percentage);
 
 			if (this.styleSheetApplied)
 			{
-				this.WebBrowser.Width = kanColleSize.Width * this.ZoomFactor;
-				this.WebBrowser.Height = kanColleSize.Height * this.ZoomFactor;
+				this.WebBrowser.Width = (kanColleSize.Width * (zoomFactor / dpi.ScaleX)) / dpi.ScaleX;
+				this.WebBrowser.Height = (kanColleSize.Height * (zoomFactor / dpi.ScaleY)) / dpi.ScaleY;
 				this.MinWidth = this.WebBrowser.Width;
 			}
 			else
 			{
 				this.WebBrowser.Width = double.NaN;
-				this.WebBrowser.Height = browserSize.Height * this.ZoomFactor;
-				this.MinWidth = browserSize.Width * this.ZoomFactor;
+				this.WebBrowser.Height = (browserSize.Height * (zoomFactor / dpi.ScaleY)) / dpi.ScaleY;
+				this.MinWidth = (browserSize.Width * (zoomFactor / dpi.ScaleX)) / dpi.ScaleX;
 			}
 		}
 

@@ -45,7 +45,6 @@ namespace Grabacr07.KanColleViewer.Models
 				ScreenshotFilename = "KanColle-{0:d04}.png",
 				ScreenshotImageFormat = SupportedImageFormat.Png,
 				CanDisplayBuildingShipName = false,
-				BrowserZoomFactorPercentage = 0,
 			};
 		}
 
