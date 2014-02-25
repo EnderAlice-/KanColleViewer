@@ -18,7 +18,7 @@
 				   Title="{Binding Title}"
 				   Width="960"
 				   Height="945"
-				   MinWidth="{Binding ElementName=WebBrowser, Path=Width}"
+				   MinWidth="{Binding ElementName=KanColleHost, Path=MinWidth}"
 				   Topmost="{Binding TopMost}"
 				   FontSize="12"
 				   Background="{DynamicResource ThemeBrushKey}"
@@ -87,15 +87,10 @@
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 
-			<ScrollViewer HorizontalScrollBarVisibility="Auto"
-						  VerticalScrollBarVisibility="Auto">
-				<WebBrowser x:Name="WebBrowser"
-							Width="960"
-							Height="572"
-							controls:WebBrowserHelper.ScriptErrorsSuppressed="True"
-							controls:WebBrowserHelper.ZoomFactor="{Binding Source={x:Static models:Settings.Current}, Path=BrowserZoomFactor}">
+			<controls:KanColleHost x:Name="KanColleHost"
+								   ZoomFactor="{Binding Settings.BrowserZoomFactor}">
+				<WebBrowser controls:WebBrowserHelper.ScriptErrorsSuppressed="True">
 					<i:Interaction.Behaviors>
-						<behaviors:SetStyleSheetBehavior />
 						<behaviors:NavigatorBehavior Navigator="{Binding Navigator}" />
 						<livet:WebBrowserSetStateToControlBehavior Source="{Binding Source={x:Static properties:Settings.Default}, Path=KanColleUrl, Mode=OneTime}"
 																   Property="Source" />
@@ -111,7 +106,7 @@
 						</livet:InteractionMessageTrigger>
 					</i:Interaction.Triggers>
 				</WebBrowser>
-			</ScrollViewer>
+			</controls:KanColleHost>
 
 			<ContentControl Grid.Row="1"
 							Content="{Binding Content}">

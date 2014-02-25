@@ -277,6 +277,27 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		#endregion
 
+		#region ZoomFactor 変更通知プロパティ
+
+		/// <summary>
+		/// ブラウザーの拡大率を取得または設定します。
+		/// </summary>
+		public double BrowserZoomFactor
+		{
+			get { return Settings.Current.BrowserZoomFactor; }
+			set
+			{
+				if (!Settings.Current.BrowserZoomFactor.Equals(value))
+				{
+					Settings.Current.BrowserZoomFactor = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+
 		public bool HasErrors
 		{
 			get { return this.reSortieConditionError != null; }

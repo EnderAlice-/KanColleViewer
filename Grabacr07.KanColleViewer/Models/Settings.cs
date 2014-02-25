@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Grabacr07.KanColleViewer.Models.Data.Xml;
 using Livet;
 using MetroRadiance.Core;
@@ -44,6 +45,7 @@ namespace Grabacr07.KanColleViewer.Models
 				ScreenshotFilename = "KanColle-{0:d04}.png",
 				ScreenshotImageFormat = SupportedImageFormat.Png,
 				CanDisplayBuildingShipName = false,
+				BrowserZoomFactorPercentage = 0,
 			};
 		}
 
@@ -341,16 +343,31 @@ namespace Grabacr07.KanColleViewer.Models
 
 		#region BrowserZoomFactor 変更通知プロパティ
 
-		private int _BrowserZoomFactor = 100;
+		private int _BrowserZoomFactorPercentage = 100;
+		private double? _BrowserZoomFactor;
 
-		public int BrowserZoomFactor
+		/// <summary>
+		/// ブラウザーの拡大率 (パーセンテージ) を取得または設定します。
+		/// </summary>
+		public int BrowserZoomFactorPercentage
 		{
-			get { return this._BrowserZoomFactor; }
+			get { return this._BrowserZoomFactorPercentage; }
+			set { this._BrowserZoomFactorPercentage = value; }
+		}
+
+		/// <summary>
+		/// ブラウザーの拡大率を取得または設定します。
+		/// </summary>
+		[XmlIgnore]
+		public double BrowserZoomFactor
+		{
+			get { return this._BrowserZoomFactor ?? (this._BrowserZoomFactor = this.BrowserZoomFactorPercentage / 100.0).Value; }
 			set
 			{
 				if (this._BrowserZoomFactor != value)
 				{
 					this._BrowserZoomFactor = value;
+					this._BrowserZoomFactorPercentage = (int)(value * 100);
 					this.RaisePropertyChanged();
 				}
 			}
