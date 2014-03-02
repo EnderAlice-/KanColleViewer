@@ -14,6 +14,7 @@
 			 xmlns:dev="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Dev"
 			 xmlns:models="clr-namespace:Grabacr07.KanColleViewer.Models"
 			 xmlns:controls="http://schemes.grabacr.net/winfx/2014/controls"
+			 xmlns:views="clr-namespace:Grabacr07.KanColleViewer.Views"
 			 mc:Ignorable="d"
 			 d:DesignHeight="25"
 			 d:DesignWidth="780">
@@ -37,84 +38,11 @@
 						Content="{Binding Source={x:Static root:App.ViewModelRoot}, Path=StatusBar}">
 			<ContentControl.Resources>
 				<DataTemplate DataType="{x:Type vm:StartContentViewModel}">
-					<StackPanel Orientation="Horizontal">
-						<StackPanel.Resources>
-							<Style TargetType="{x:Type metro2:CallMethodButton}">
-								<Setter Property="Width"
-										Value="20" />
-								<Setter Property="Margin"
-										Value="3,0" />
-								<Setter Property="Template">
-									<Setter.Value>
-										<ControlTemplate TargetType="{x:Type Button}">
-											<Border Background="Transparent">
-												<ContentPresenter x:Name="Presenter"
-																  HorizontalAlignment="Center"
-																  VerticalAlignment="Center" />
-											</Border>
-											<ControlTemplate.Triggers>
-												<Trigger Property="IsMouseOver"
-														 Value="True">
-													<Setter TargetName="Presenter"
-															Property="Opacity"
-															Value="0.5" />
-												</Trigger>
-												<Trigger Property="IsPressed"
-														 Value="True">
-													<Setter TargetName="Presenter"
-															Property="Opacity"
-															Value="0.5" />
-												</Trigger>
-											</ControlTemplate.Triggers>
-										</ControlTemplate>
-									</Setter.Value>
-								</Setter>
-							</Style>
-							<Style x:Key="ZoomButtonContentStyleKey"
-								   TargetType="{x:Type TextBlock}">
-								<Setter Property="Foreground"
-										Value="{DynamicResource ActiveForegroundBrushKey}" />
-								<Setter Property="TextOptions.TextFormattingMode"
-										Value="Display" />
-								<Setter Property="FontFamily"
-										Value="Meiryo" />
-								<Setter Property="FontSize"
-										Value="16" />
-								<Setter Property="FontWeight"
-										Value="Bold" />
-							</Style>
-						</StackPanel.Resources>
-
-						<metro2:CallMethodButton>
-							<TextBlock Text="-"
-									   Style="{StaticResource ZoomButtonContentStyleKey}"
-									   Margin="3,0,0,0" />
-						</metro2:CallMethodButton>
-						<Slider x:Name="ZoomSlider"
-								Minimum="0.25"
-								Maximum="4.0"
-								Value="1.0"
-								LargeChange="0.5"
-								SmallChange="0.25"
-								TickFrequency="0.25"
-								IsMoveToPointEnabled="True"
-								IsSnapToTickEnabled="True"
-								Style="{DynamicResource FlatSliderStyleKey}"
-								Width="100"
-								VerticalAlignment="Center" />
-						<metro2:CallMethodButton>
-							<TextBlock Text="+"
-									   Style="{StaticResource ZoomButtonContentStyleKey}"
-									   Margin="0,0,3,0" />
-						</metro2:CallMethodButton>
-
-						<TextBlock Text="{Binding ElementName=ZoomSlider, Path=Value, Mode=OneWay, StringFormat={}{0:# %}}"
-								   Foreground="{DynamicResource ActiveForegroundBrushKey}"
-								   Width="50"
-								   Margin="5,0,0,1" />
-					</StackPanel>
+					<views:ZoomSlider />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type vmContents:OverviewViewModel}" />
+				<DataTemplate DataType="{x:Type vmContents:OverviewViewModel}">
+					<views:ZoomSlider />
+				</DataTemplate>
 				<DataTemplate DataType="{x:Type vmFleets:FleetsViewModel}">
 					<TextBlock DataContext="{Binding SelectedFleet}"
 							   Foreground="{DynamicResource AccentForegroundBrushKey}">
@@ -132,7 +60,9 @@
 				<DataTemplate DataType="{x:Type vmDocks:DockyardViewModel}" />
 				<DataTemplate DataType="{x:Type vmContents:QuestsViewModel}" />
 				<DataTemplate DataType="{x:Type vmContents:ExpeditionsViewModel}" />
-				<DataTemplate DataType="{x:Type vm:SettingsViewModel}" />
+				<DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+					<views:ZoomSlider />
+				</DataTemplate>
 				<DataTemplate DataType="{x:Type dev:DebugTabViewModel}" />
 			</ContentControl.Resources>
 		</ContentControl>
