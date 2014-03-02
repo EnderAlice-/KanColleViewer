@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -26,6 +27,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 	/// </summary>
 	public partial class ZoomFactorSelector
 	{
+		private Dpi? systemDpi;
 		private List<ZoomFactorSelectorItem> items;
 		private IDisposable zoomFactorNotifyListener;
 
@@ -172,6 +174,15 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			{
 				this.ZoomFactor.ZoomUp();
 			}
+		}
+
+		private CustomPopupPlacement[] PopupPlacementCallback(Size popupSize, Size targetSize, Point offset)
+		{
+			var dpi = this.systemDpi ?? (this.systemDpi = this.GetSystemDpi()) ?? Dpi.Default;
+			return new[]
+			{
+				new CustomPopupPlacement(new Point(offset.X * dpi.ScaleX, offset.Y* dpi.ScaleY), PopupPrimaryAxis.None),
+			};
 		}
 
 		private void ChangeBackground()

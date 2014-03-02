@@ -16,7 +16,7 @@
 			 xmlns:controls="clr-namespace:Grabacr07.KanColleViewer.Views.Controls"
 			 mc:Ignorable="d"
 			 d:DesignHeight="26"
-			 SnapsToDevicePixels="True">
+			 UseLayoutRounding="True">
 	<DockPanel>
 		<!--<metro:CaptionButton x:Name="ZoomDownButton"
 							 x:FieldModifier="private"
@@ -48,7 +48,7 @@
 							   VerticalAlignment="Top"
 							   Margin="0,-1,0,0" />
 					<TextBlock Text="%"
-							   FontSize="10"
+							   FontSize="9"
 							   FontFamily="Segoe UI"
 							   Foreground="{DynamicResource ActiveForegroundBrushKey}"
 							   VerticalAlignment="Bottom"
@@ -78,8 +78,10 @@
 
 		<Popup x:Name="Popup"
 			   x:FieldModifier="private"
+			   Placement="Custom"
 			   PlacementTarget="{Binding ElementName=PopupButton}"
 			   PlacementRectangle="-9,20,0,0"
+			   CustomPopupPlacementCallback="PopupPlacementCallback"
 			   IsOpen="{Binding ElementName=PopupButton, Path=IsChecked}"
 			   StaysOpen="False"
 			   PopupAnimation="Fade"
