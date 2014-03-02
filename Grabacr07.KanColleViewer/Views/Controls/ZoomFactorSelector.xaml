@@ -48,7 +48,7 @@
 							   VerticalAlignment="Top"
 							   Margin="0,-1,0,0" />
 					<TextBlock Text="%"
-							   FontSize="9"
+							   FontSize="9.5"
 							   FontFamily="Segoe UI"
 							   Foreground="{DynamicResource ActiveForegroundBrushKey}"
 							   VerticalAlignment="Bottom"
