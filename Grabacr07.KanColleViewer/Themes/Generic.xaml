@@ -12,7 +12,6 @@
 		<ResourceDictionary Source="/KanColleViewer;component/Themes/Generic.NavigationButton.xaml" />
 		<ResourceDictionary Source="/KanColleViewer;component/Themes/Generic.Quest.xaml" />
 		<ResourceDictionary Source="/KanColleViewer;component/Themes/Generic.SlotItemIcon.xaml" />
-		<ResourceDictionary Source="/KanColleViewer;component/Themes/Generic.ZoomController.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
