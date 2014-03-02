@@ -277,25 +277,25 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		#endregion
 
-		#region ZoomFactor 変更通知プロパティ
+		#region BrowserZoomFactor 変更通知プロパティ
 
-		/// <summary>
-		/// ブラウザーの拡大率を取得または設定します。
-		/// </summary>
-		public double BrowserZoomFactor
+		private BrowserZoomFactor _BrowserZoomFactor;
+
+		public BrowserZoomFactor BrowserZoomFactor
 		{
-			get { return Settings.Current.BrowserZoomFactor; }
-			set
+			get { return this._BrowserZoomFactor; }
+			private set
 			{
-				if (!Settings.Current.BrowserZoomFactor.Equals(value))
+				if (this._BrowserZoomFactor != value)
 				{
-					Settings.Current.BrowserZoomFactor = value;
+					this._BrowserZoomFactor = value;
 					this.RaisePropertyChanged();
 				}
 			}
 		}
 
 		#endregion
+
 
 
 		public bool HasErrors
@@ -333,7 +333,15 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 			this._IsDarkTheme = ThemeService.Current.Theme == Theme.Dark;
 			this._IsLightTheme = ThemeService.Current.Theme == Theme.Light;
+
+			var zoomFactor = new BrowserZoomFactor { Current = Settings.Current.BrowserZoomFactor };
+			this.CompositeDisposable.Add(new PropertyChangedEventListener(zoomFactor)
+			{
+				{ "Current", (sender, args) => Settings.Current.BrowserZoomFactor = zoomFactor.Current },
+			});
+			this.BrowserZoomFactor = zoomFactor;
 		}
+
 
 		public void OpenScreenshotFolderSelectionDialog()
 		{
