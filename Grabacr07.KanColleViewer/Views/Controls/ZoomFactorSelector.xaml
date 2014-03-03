@@ -18,19 +18,6 @@
 			 d:DesignHeight="26"
 			 UseLayoutRounding="True">
 	<DockPanel>
-		<!--<metro:CaptionButton x:Name="ZoomDownButton"
-							 x:FieldModifier="private"
-							 Width="Auto"
-							 Padding="12,0,6,0"
-							 IsEnabled="{Binding ElementName=ZoomController, Path=ZoomFactor.CanZoomDown}"
-							 Click="ZoomDown">
-			<Path Data="M0,6 8,12 8,0 z"
-				  Stretch="Uniform"
-				  Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}"
-				  Width="6"
-				  Height="10" />
-		</metro:CaptionButton>-->
-
 		<ToggleButton x:Name="PopupButton"
 					  x:FieldModifier="private"
 					  Width="Auto">
@@ -40,48 +27,31 @@
 					  Stretch="Fill"
 					  Width="20"
 					  Height="18" />
-				<Grid Margin="-2,0,0,0">
-					<TextBlock Text="{Binding ElementName=ZoomController, Path=ZoomFactor.CurrentParcentage}"
-							   FontSize="14"
-							   FontFamily="Segoe UI"
-							   Foreground="{DynamicResource ActiveForegroundBrushKey}"
-							   VerticalAlignment="Top"
-							   Margin="0,-1,0,0" />
-					<TextBlock Text="%"
-							   FontSize="9.5"
-							   FontFamily="Segoe UI"
-							   Foreground="{DynamicResource ActiveForegroundBrushKey}"
-							   VerticalAlignment="Bottom"
-							   HorizontalAlignment="Right"
-							   Margin="0,0,0,1" />
-				</Grid>
+				<TextBlock FontSize="8"
+						   FontFamily="Segoe UI"
+						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
+						   VerticalAlignment="Top"
+						   Margin="-2,-1,0,0">
+					<Run Text="{Binding ElementName=ZoomController, Path=ZoomFactor.CurrentParcentage}"
+						 FontSize="16" />
+					<Run Text="%"
+						 FontSize="12" />
+				</TextBlock>
 			</DockPanel>
 			<ToggleButton.Template>
 				<ControlTemplate TargetType="{x:Type ToggleButton}">
 					<Border Background="Transparent">
-						<ContentPresenter Margin="10,0" />
+						<ContentPresenter Margin="8,0,10,0" />
 					</Border>
 				</ControlTemplate>
 			</ToggleButton.Template>
 		</ToggleButton>
-
-		<!--<metro:CaptionButton Width="Auto"
-							 Padding="6,0,12,0"
-							 IsEnabled="{Binding ElementName=ZoomController, Path=ZoomFactor.CanZoomUp}"
-							 Click="ZoomUp">
-			<Path Data="M0,0 0,12 8,6 z"
-				  Stretch="Uniform"
-				  Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Foreground}"
-				  Width="6"
-				  Height="10" />
-		</metro:CaptionButton>-->
 
 		<Popup x:Name="Popup"
 			   x:FieldModifier="private"
 			   Placement="Custom"
 			   PlacementTarget="{Binding ElementName=PopupButton}"
 			   PlacementRectangle="-9,20,0,0"
-			   CustomPopupPlacementCallback="PopupPlacementCallback"
 			   IsOpen="{Binding ElementName=PopupButton, Path=IsChecked}"
 			   StaysOpen="False"
 			   PopupAnimation="Fade"
@@ -131,10 +101,16 @@
 															<TextBlock FontSize="14"
 																	   FontFamily="Segoe UI"
 																	   Margin="5">
-																<Run Text="{Binding Value, StringFormat={}{0} %}"
+																<Run Text="{Binding Value, StringFormat={}{0} %, Mode=OneWay}"
 																	 Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-																<Run x:Name="DefaultText"
-																	 Text="" />
+																<Run FontSize="12">
+																	<Run.Text>
+																		<MultiBinding StringFormat="  ({0} x {1})">
+																			<Binding Path="ScreenSize.Width" />
+																			<Binding Path="ScreenSize.Height" />
+																		</MultiBinding>
+																	</Run.Text>
+																</Run>
 															</TextBlock>
 														</metro2:CallMethodButton>
 													</StackPanel>
@@ -151,12 +127,6 @@
 																	Property="Background"
 																	Value="{DynamicResource AccentBrushKey}" />
 														</Trigger>
-														<DataTrigger Binding="{Binding IsDefault}"
-																	 Value="True">
-															<Setter TargetName="DefaultText"
-																	Property="Text"
-																	Value=" (default)" />
-														</DataTrigger>
 													</ControlTemplate.Triggers>
 												</ControlTemplate>
 											</Setter.Value>

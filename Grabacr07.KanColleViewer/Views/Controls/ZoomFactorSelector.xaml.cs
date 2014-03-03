@@ -34,26 +34,8 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		internal class ZoomFactorSelectorItem : NotificationObject
 		{
 			public Action SelectAction { get; set; }
-			public bool IsDefault { get; set; }
-
-			#region Value 変更通知プロパティ
-
-			private int _Value;
-
-			public int Value
-			{
-				get { return this._Value; }
-				set
-				{
-					if (this._Value != value)
-					{
-						this._Value = value;
-						this.RaisePropertyChanged();
-					}
-				}
-			}
-
-			#endregion
+			public Size ScreenSize { get; set; }
+			public int Value { get; set; }
 
 			#region IsSelected 変更通知プロパティ
 
@@ -103,14 +85,14 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 
 			if (newValue != null)
 			{
-				var dpi = source.GetSystemDpi();
+				var dpi = source.systemDpi ?? (source.systemDpi = source.GetSystemDpi()) ?? Dpi.Default;
 				source.items = newValue.SupportedValues
 					.Select(x => new ZoomFactorSelectorItem
 					{
 						Value = (int)(x * 100),
+						ScreenSize = new Size(800 * (dpi.ScaleX + (x - 1.0)), 480 * (dpi.ScaleY + (x - 1.0))),
 						IsSelected = x.Equals(newValue.Current),
 						SelectAction = () => newValue.Current = x,
-						IsDefault = dpi.HasValue && dpi.Value.ScaleX.Equals(x),
 					})
 					.ToList();
 				source.SupportedList.ItemsSource = source.items;
@@ -140,6 +122,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		{
 			InitializeComponent();
 
+			this.Popup.CustomPopupPlacementCallback = this.PopupPlacementCallback;
 			this.Popup.Opened += (sender, args) => this.ChangeBackground();
 			this.Popup.Closed += (sender, args) => this.ChangeBackground();
 		}
@@ -159,22 +142,6 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 			this.ChangeBackground();
 		}
 
-
-		private void ZoomDown(object sender, RoutedEventArgs e)
-		{
-			if (this.ZoomFactor != null && this.ZoomFactor.CanZoomDown)
-			{
-				this.ZoomFactor.ZoomDown();
-			}
-		}
-
-		private void ZoomUp(object sender, RoutedEventArgs e)
-		{
-			if (this.ZoomFactor != null && this.ZoomFactor.CanZoomUp)
-			{
-				this.ZoomFactor.ZoomUp();
-			}
-		}
 
 		private CustomPopupPlacement[] PopupPlacementCallback(Size popupSize, Size targetSize, Point offset)
 		{
