@@ -90,7 +90,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 					.Select(x => new ZoomFactorSelectorItem
 					{
 						Value = (int)(x * 100),
-						ScreenSize = new Size(800 * (dpi.ScaleX + (x - 1.0)), 480 * (dpi.ScaleY + (x - 1.0))),
+						ScreenSize = new Size(800 * ((dpi.ScaleX + (x - 1.0)) / dpi.ScaleX), 480 * ((dpi.ScaleY + (x - 1.0)) / dpi.ScaleY)),
 						IsSelected = x.Equals(newValue.Current),
 						SelectAction = () => newValue.Current = x,
 					})
