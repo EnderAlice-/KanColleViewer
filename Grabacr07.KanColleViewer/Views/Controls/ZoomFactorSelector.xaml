@@ -31,9 +31,9 @@
 						   FontFamily="Segoe UI"
 						   Foreground="{DynamicResource ActiveForegroundBrushKey}"
 						   VerticalAlignment="Top"
-						   Margin="-2,-1,0,0">
+						   Margin="-2,0,0,0">
 					<Run Text="{Binding ElementName=ZoomController, Path=ZoomFactor.CurrentParcentage}"
-						 FontSize="16" />
+						 FontSize="15" />
 					<Run Text="%"
 						 FontSize="12" />
 				</TextBlock>

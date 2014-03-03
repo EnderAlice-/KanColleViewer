@@ -87,7 +87,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		{
 			var instance = (KanColleHost)d;
 
-			instance.ChangeSize();
+			instance.Update();
 		}
 
 		#endregion
@@ -95,7 +95,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 
 		public KanColleHost()
 		{
-			this.Loaded += (sender, args) => this.ChangeSize();
+			this.Loaded += (sender, args) => this.Update();
 		}
 
 		public override void OnApplyTemplate()
@@ -110,7 +110,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 		}
 
 
-		private void ChangeSize()
+		public void Update()
 		{
 			if (this.WebBrowser == null) return;
 
@@ -193,7 +193,7 @@ namespace Grabacr07.KanColleViewer.Views.Controls
 				StatusService.Current.Notify("failed to apply css: " + ex.Message);
 			}
 
-			this.ChangeSize();
+			this.Update();
 
 			var window = Window.GetWindow(this.WebBrowser);
 			if (window != null)

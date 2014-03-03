@@ -16,6 +16,7 @@ using Grabacr07.KanColleViewer.ViewModels.Messages;
 using Grabacr07.KanColleWrapper;
 using Livet;
 using Livet.EventListeners;
+using Livet.Messaging;
 using Livet.Messaging.IO;
 using MetroRadiance;
 using Settings = Grabacr07.KanColleViewer.Models.Settings;
@@ -380,7 +381,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		public void ClearZoomFactor()
 		{
-			App.ViewModelRoot.Messenger.Raise(new ZoomMessage { MessageKey = "WebBrowser/Zoom", ZoomFactor = 100 });
+			App.ViewModelRoot.Messenger.Raise(new InteractionMessage { MessageKey = "WebBrowser/Zoom" });
 		}
 
 		public void SetLocationLeft()
