@@ -22,7 +22,7 @@
 				   mc:Ignorable="d"
 				   d:DataContext="{d:DesignInstance viewModels:ShipCatalogWindowViewModel}"
 				   Title="{Binding Title}"
-				   Width="900"
+				   Width="920"
 				   Height="800"
 				   FontSize="12"
 				   Background="{DynamicResource ThemeBrushKey}"
@@ -427,6 +427,21 @@
 					</ListView.Resources>
 					<ListView.View>
 						<GridView>
+							<GridViewColumn Width="35">
+								<GridViewColumn.Header>
+									<TextBlock Text="" />
+								</GridViewColumn.Header>
+								<GridViewColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Index}"
+												   Margin="0,3"
+												   Opacity="0.5"
+												   TextTrimming="None"
+												   TextWrapping="NoWrap" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
 							<GridViewColumn Width="50">
 								<GridViewColumn.Header>
 									<metro2:SortButton Direction="{Binding SortWorker.IdColumn.Direction}"

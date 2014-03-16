@@ -151,10 +151,11 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 				.Where(this.ShipLockFilter.Predicate)
 				.Where(this.ShipSpeedFilter.Predicate)
 				.Where(this.ShipModernizeFilter.Predicate)
-				.Where(this.ShipRemodelingFilter.Predicate)
-				.Select(x => new ShipViewModel(x));
+				.Where(this.ShipRemodelingFilter.Predicate);
 
-			this.Ships = this.SortWorker.Sort(list).ToList();
+			this.Ships = this.SortWorker.Sort(list)
+				.Select((x, i) => new ShipViewModel(i + 1, x))
+				.ToList();
 		}
 
 
