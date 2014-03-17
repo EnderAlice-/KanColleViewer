@@ -130,11 +130,12 @@
 				</ListBox>
 
 				<ItemsControl ItemsSource="{Binding SelectedFleet.Ships}"
+							  Background="Transparent"
 							  Margin="0,3,0,0"
 							  Grid.IsSharedSizeScope="True">
 					<i:Interaction.Triggers>
 						<behaviors:FlickTrigger>
-							<behaviors:FlickFleetsAction TargetObject="{Binding Fleets}"
+							<behaviors:FlickFleetsAction TargetObject="{Binding}"
 														 IsCyclic="True"
 														 Orientation="Horizontal" />
 						</behaviors:FlickTrigger>
