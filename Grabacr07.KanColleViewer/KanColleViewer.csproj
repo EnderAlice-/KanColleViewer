@@ -216,7 +216,6 @@
     <Compile Include="Views\Controls\AppIcon.cs" />
     <Compile Include="Views\Controls\BuildingDock.cs" />
     <Compile Include="Views\Controls\MuteButton.cs" />
-    <Compile Include="Views\Controls\NavigationButton.cs" />
     <Compile Include="Views\Controls\Quest.cs" />
     <Compile Include="Views\Controls\SlotItemIcon.cs" />
     <Compile Include="Views\Contents\Dockyard.xaml.cs">
@@ -333,11 +332,6 @@
       <DependentUpon>Generic.xaml</DependentUpon>
     </Page>
     <Page Include="Themes\Generic.MuteButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Generic.xaml</DependentUpon>
-    </Page>
-    <Page Include="Themes\Generic.NavigationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Generic.xaml</DependentUpon>

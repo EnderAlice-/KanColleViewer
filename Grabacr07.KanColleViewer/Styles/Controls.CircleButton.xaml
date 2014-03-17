@@ -9,6 +9,8 @@
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
 		<Setter Property="Foreground"
 				Value="{DynamicResource ActiveForegroundBrushKey}" />
+		<Setter Property="Width"
+				Value="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" />
 		<Setter Property="Padding"
 				Value="8" />
 		<Setter Property="Template">

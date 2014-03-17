@@ -45,13 +45,11 @@
 						Orientation="Horizontal"
 						Margin="5,0">
 				<controls:MuteButton Margin="6,6,0,6"
-									 Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 									 DataContext="{Binding Volume}"
 									 IsMute="{Binding IsMute, Mode=OneWay}"
 									 MethodName="ToggleMute" />
 
 				<metro2:CallMethodButton Margin="6,6,0,6"
-										 Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
 										 MethodTarget="{Binding Source={x:Static root:App.ViewModelRoot}}"
 										 MethodName="TakeScreenshot"
 										 Style="{DynamicResource CircleButtonStyleKey}">
