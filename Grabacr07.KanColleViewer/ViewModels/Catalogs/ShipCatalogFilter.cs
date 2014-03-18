@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Grabacr07.KanColleWrapper;
 using Grabacr07.KanColleWrapper.Models;
 using Livet;
 
@@ -243,7 +244,8 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 		#endregion
 
 
-		public ShipSpeedFilter(Action updateAction) : base(updateAction)
+		public ShipSpeedFilter(Action updateAction)
+			: base(updateAction)
 		{
 			this._Both = true;
 		}
@@ -411,6 +413,47 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 			if (this.NotAlreadyRemodeling && ship.Info.NextRemodelingLevel.HasValue) return true;
 
 			return false;
+		}
+	}
+
+	public class ShipExpeditionFilter : ShipCatalogFilter
+	{
+		private HashSet<int> shipIds = new HashSet<int>();
+
+		#region WithoutExpedition 変更通知プロパティ
+
+		private bool _WithoutExpedition;
+
+		public bool WithoutExpedition
+		{
+			get { return this._WithoutExpedition; }
+			set
+			{
+				if (this._WithoutExpedition != value)
+				{
+					this._WithoutExpedition = value;
+					this.RaisePropertyChanged();
+					this.Update();
+				}
+			}
+		}
+
+		#endregion
+
+		public ShipExpeditionFilter(Action updateAction) : base(updateAction) { }
+
+		public override bool Predicate(Ship ship)
+		{
+			return !this.WithoutExpedition || !this.shipIds.Contains(ship.Id);
+		}
+
+		public void SetFleets(MemberTable<Fleet> fleets)
+		{
+			if (fleets == null) return;
+
+			this.shipIds = new HashSet<int>(fleets
+				.Where(x => x.Value.Expedition.IsInExecution)
+				.SelectMany(x => x.Value.GetShips().Select(s => s.Id)));
 		}
 	}
 }
