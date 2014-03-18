@@ -146,6 +146,8 @@
     <Compile Include="Models\Toast.cs" />
     <Compile Include="Models\Internal\Windows8Notifier.cs" />
     <Compile Include="Models\Volume.cs" />
+    <Compile Include="ViewModels\Catalogs\ShipCatalogFilter.cs" />
+    <Compile Include="ViewModels\Catalogs\ShipViewModel.cs" />
     <Compile Include="ViewModels\Catalogs\SlotItemCatalogViewModel.cs" />
     <Compile Include="ViewModels\Catalogs\SlotItemViewModel.cs" />
     <Compile Include="ViewModels\Catalogs\SortableColumnViewModel.cs" />
@@ -216,7 +218,6 @@
     <Compile Include="Views\Controls\AppIcon.cs" />
     <Compile Include="Views\Controls\BuildingDock.cs" />
     <Compile Include="Views\Controls\MuteButton.cs" />
-    <Compile Include="Views\Controls\NavigationButton.cs" />
     <Compile Include="Views\Controls\Quest.cs" />
     <Compile Include="Views\Controls\SlotItemIcon.cs" />
     <Compile Include="Views\Contents\Dockyard.xaml.cs">
@@ -269,6 +270,16 @@
     <Page Include="Styles\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Controls.CircleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.HorizontalFlatListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
     </Page>
     <Page Include="Styles\Controls.ListView.xaml">
       <SubType>Designer</SubType>
@@ -324,11 +335,6 @@
       <DependentUpon>Generic.xaml</DependentUpon>
     </Page>
     <Page Include="Themes\Generic.MuteButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Generic.xaml</DependentUpon>
-    </Page>
-    <Page Include="Themes\Generic.NavigationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Generic.xaml</DependentUpon>
