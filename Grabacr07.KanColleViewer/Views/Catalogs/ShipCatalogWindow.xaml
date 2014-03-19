@@ -200,7 +200,7 @@
 										<x:Array Type="s:Int32">
 											<s:Int32>7</s:Int32>
 											<s:Int32>11</s:Int32>
-											<s:Int32>17</s:Int32>
+											<s:Int32>18</s:Int32>
 										</x:Array>
 									</metro2:CallMethodButton.MethodParameter>
 								</metro2:CallMethodButton>
@@ -232,6 +232,11 @@
 							<WrapPanel.Resources>
 								<Style TargetType="{x:Type RadioButton}"
 									   BasedOn="{StaticResource {x:Type RadioButton}}">
+									<Setter Property="Margin"
+											Value="0,2,12,2" />
+								</Style>
+								<Style TargetType="{x:Type CheckBox}"
+									   BasedOn="{StaticResource {x:Type CheckBox}}">
 									<Setter Property="Margin"
 											Value="0,2,12,2" />
 								</Style>
@@ -291,6 +296,25 @@
 										<RadioButton IsChecked="{Binding Unlocked, Mode=TwoWay}">
 											<TextBlock Text="ロックしていない" />
 										</RadioButton>
+									</WrapPanel>
+								</Grid>
+
+								<Grid DataContext="{Binding ShipExpeditionFilter}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"
+														  SharedSizeGroup="FilterName" />
+										<ColumnDefinition Width="10" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<TextBlock Margin="0,2"
+											   HorizontalAlignment="Right">
+										<Run Text="遠征" />
+										<Run Text=":" />
+									</TextBlock>
+									<WrapPanel Grid.Column="2">
+										<CheckBox IsChecked="{Binding WithoutExpedition, Mode=TwoWay}">
+											<TextBlock Text="遠征中の艦を除外する" />
+										</CheckBox>
 									</WrapPanel>
 								</Grid>
 							</StackPanel>
