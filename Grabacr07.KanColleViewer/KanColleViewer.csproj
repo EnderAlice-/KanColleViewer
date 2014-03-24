@@ -425,7 +425,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Fleets.xaml">
+    <Page Include="Views\Contents\Fleets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -454,7 +454,7 @@
     <Compile Include="Views\Behaviors\TimerBehavior.cs" />
     <Compile Include="Views\Controls\ColorIndicator.cs" />
     <Compile Include="Views\Controls\ConditionIcon.cs" />
-    <Compile Include="Views\Fleets.xaml.cs">
+    <Compile Include="Views\Contents\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainContent.xaml.cs">
