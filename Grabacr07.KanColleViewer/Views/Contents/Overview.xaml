@@ -159,7 +159,6 @@
 									</Grid.ColumnDefinitions>
 
 									<TextBlock>
-										<TextBlock>
 											<Run Text="{Binding Ship.Info.Name, Mode=OneWay}"
 												 Style="{DynamicResource PickupTextElementStyleKey}" />
 											<LineBreak />
