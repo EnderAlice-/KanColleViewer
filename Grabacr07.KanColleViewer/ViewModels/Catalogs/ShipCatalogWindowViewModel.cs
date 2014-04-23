@@ -101,7 +101,7 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 			this.IsOpenSettings = true;
 
 			this.SortWorker = new ShipCatalogSortWorker();
-			this.SortWorker.SetTarget(ShipCatalogSortTarget.Level);
+			this.SortWorker.SetTarget(ShipCatalogSortTarget.Level, false);
 
 			this.ShipTypes = KanColleClient.Current.Master.ShipTypes
 				.Select(kvp => new ShipTypeViewModel(kvp.Value)
@@ -144,7 +144,12 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 
 		public void Update(ShipCatalogSortTarget sortTarget)
 		{
-			this.SortWorker.SetTarget(sortTarget);
+			this.SortWorker.SetTarget(sortTarget, false);
+			this.Update();
+		}
+		public void UpdateReverse(ShipCatalogSortTarget sortTarget)
+		{
+			this.SortWorker.SetTarget(sortTarget, true);
 			this.Update();
 		}
 

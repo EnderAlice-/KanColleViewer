@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanColleViewer", "Grabacr07.KanColleViewer\KanColleViewer.csproj", "{C5F0111F-3F68-4A74-BB20-BB762564D080}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F00FC570-2A80-4F61-8364-798CD44514B2} = {F00FC570-2A80-4F61-8364-798CD44514B2}
+		{0BC8CF79-76D9-46AD-867F-FEC6C6AD4594} = {0BC8CF79-76D9-46AD-867F-FEC6C6AD4594}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B8B36616-103B-4D8B-A752-A7C07FE1BA70}"
 	ProjectSection(SolutionItems) = preProject

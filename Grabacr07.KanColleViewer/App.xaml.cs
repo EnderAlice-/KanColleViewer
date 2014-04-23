@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using Grabacr07.KanColleViewer.Models;
 using Grabacr07.KanColleViewer.ViewModels;
 using Grabacr07.KanColleViewer.Views;
+using Grabacr07.KanColleViewer.Win32;
 using Grabacr07.KanColleWrapper;
 using Livet;
 using MetroRadiance;
@@ -31,6 +33,28 @@ namespace Grabacr07.KanColleViewer
 			base.OnStartup(e);
 
 			this.DispatcherUnhandledException += (sender, args) => ReportException(sender, args.Exception);
+
+			#region アフィニティ マスクの変更
+			try
+			{
+				var myThread = Kernel32.GetCurrentThread();
+
+				var processorNumber = new PROCESSOR_NUMBER(0, 0);
+				if(Kernel32.GetThreadIdealProcessorEx(myThread, ref processorNumber))
+				{
+					var groupAffinity = new GROUP_AFFINITY(processorNumber.Group, (UIntPtr)(1 << processorNumber.Number));
+					Kernel32.SetThreadGroupAffinity(myThread, ref groupAffinity);
+
+//#if _DEBUG
+//					MessageBox.Show("アフィニティマスクを変更しました。\nプロセッサ グループ:" + processorNumber.Group + "\nプロセッサ番号:" + processorNumber.Number, "デバッグ", MessageBoxButton.OK, MessageBoxImage.Information);
+//#endif
+				}
+			}
+			catch(Exception ex)
+			{
+				Debug.WriteLine(ex);
+			}
+			#endregion
 
 			DispatcherHelper.UIDispatcher = this.Dispatcher;
 			ProductInfo = new ProductInfo();
