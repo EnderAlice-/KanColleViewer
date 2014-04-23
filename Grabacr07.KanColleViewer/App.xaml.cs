@@ -45,9 +45,9 @@ namespace Grabacr07.KanColleViewer
 					var groupAffinity = new GROUP_AFFINITY(processorNumber.Group, (UIntPtr)(1 << processorNumber.Number));
 					Kernel32.SetThreadGroupAffinity(myThread, ref groupAffinity);
 
-//#if _DEBUG
-//					MessageBox.Show("アフィニティマスクを変更しました。\nプロセッサ グループ:" + processorNumber.Group + "\nプロセッサ番号:" + processorNumber.Number, "デバッグ", MessageBoxButton.OK, MessageBoxImage.Information);
-//#endif
+#if _DEBUG
+					//MessageBox.Show("アフィニティマスクを変更しました。\nプロセッサ グループ:" + processorNumber.Group + "\nプロセッサ番号:" + processorNumber.Number, "デバッグ", MessageBoxButton.OK, MessageBoxImage.Information);
+#endif
 				}
 			}
 			catch(Exception ex)

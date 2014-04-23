@@ -50,6 +50,11 @@ namespace Grabacr07.KanColleWrapper
 		/// </summary>
 		public Quests Quests { get; private set; }
 
+		/// <summary>
+		/// Logs events such as ship drops, crafts, and item developments.
+		/// </summary>
+		public Logger Logger { get; private set; }
+
 		#region Admiral 変更通知プロパティ
 
 		private Admiral _Admiral;
@@ -229,10 +234,7 @@ namespace Grabacr07.KanColleWrapper
 			proxy.ApiSessionSource.Where(x => x.PathAndQuery == "/kcsapi/api_get_member/deck_port")
 				.TryParse<kcsapi_deck[]>()
 				.Subscribe(this.UpdateFleets);
-
-			this.Dockyard = new Dockyard(proxy);
-			this.Repairyard = new Repairyard(this, proxy);
-			this.Quests = new Quests(proxy);		}
+		}
 
 
 		private void UpdateFleets(kcsapi_deck[] source)

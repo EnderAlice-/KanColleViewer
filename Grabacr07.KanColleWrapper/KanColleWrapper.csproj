@@ -112,9 +112,6 @@
     <Compile Include="Models\Raw\kcsapi_createship.cs" />
     <Compile Include="Models\Raw\kcsapi_map_next.cs" />
     <Compile Include="Models\Raw\kcsapi_charge.cs" />
-    <Compile Include="Models\Raw\kcsapi_battleresult.cs" />
-    <Compile Include="Models\Raw\kcsapi_createitem.cs" />
-    <Compile Include="Models\Raw\kcsapi_createship.cs" />
     <Compile Include="Models\Raw\kcsapi_port.cs" />
     <Compile Include="Models\Raw\kcsapi_quest.cs" />
     <Compile Include="Models\Raw\kcsapi_questlist.cs" />
