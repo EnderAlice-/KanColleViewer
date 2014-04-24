@@ -71,7 +71,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		/// <param name="PreviousGroupAffinity">以前のプロセッサのビットマップ</param>
 		/// <returns>SetThreadGroupAffinity 関数の成否</returns>
 		[DllImport("Kernel32.dll", SetLastError = true, EntryPoint = "SetThreadGroupAffinity")]
-		extern private static Boolean _SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity, [In] IntPtr PreviousGroupAffinity);
+		extern private static bool _SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity, [In] IntPtr PreviousGroupAffinity);
 
 		/// <summary>
 		/// スレッドが使用できるプロセッサを指定します。
@@ -79,7 +79,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		/// <param name="hThread">変更対象のスレッドへのハンドル</param>
 		/// <param name="GroupAffinity">プロセッサ グループにおけるプロセッサのビットマップ</param>
 		/// <returns>SetThreadGroupAffinity 関数の成否</returns>
-		public static Boolean SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity)
+		public static bool SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity)
 		{
 			return _SetThreadGroupAffinity(hThread, ref GroupAffinity, IntPtr.Zero);
 		}
@@ -91,7 +91,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		/// <param name="GroupAffinity">プロセッサ グループにおけるプロセッサのビットマップ</param>
 		/// <param name="PreviousGroupAffinity">以前のプロセッサのビットマップ</param>
 		/// <returns>SetThreadGroupAffinity 関数の成否</returns>
-		public static Boolean SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity, [In, Out] ref GROUP_AFFINITY PreviousGroupAffinity)
+		public static bool SetThreadGroupAffinity([In] IntPtr hThread, [In] ref GROUP_AFFINITY GroupAffinity, [In, Out] ref GROUP_AFFINITY PreviousGroupAffinity)
 		{
 			var _PreviousGroupAffinity = GCHandle.Alloc(PreviousGroupAffinity, GCHandleType.Pinned);
 			var _b = _SetThreadGroupAffinity(hThread, ref GroupAffinity, _PreviousGroupAffinity.AddrOfPinnedObject());
@@ -106,6 +106,23 @@ namespace Grabacr07.KanColleViewer.Win32
 		/// <returns>呼び出し元のスレッドを指すスレッド ハンドル</returns>
 		[DllImport("Kernel32.dll")]
 		extern public static IntPtr GetCurrentThread();
+
+		/// <summary>
+		/// スレッドの優先度を変更します。
+		/// </summary>
+		/// <param name="hThread">優先度を変更するスレッドのハンドル</param>
+		/// <param name="nPriority">優先度</param>
+		/// <returns>SetThreadPriority 関数の成否</returns>
+		[DllImport("Kernel32.dll", SetLastError = true)]
+		extern public static bool SetThreadPriority([In] IntPtr hThread, [In] int nPriority);
+
+		public static readonly int THREAD_PRIORITY_IDLE = -15;
+		public static readonly int THREAD_PRIORITY_LOWEST = -2;
+		public static readonly int THREAD_PRIORITY_BELOW_NORMAL = -1;
+		public static readonly int THREAD_PRIORITY_NORMAL = 0;
+		public static readonly int THREAD_PRIORITY_ABOVE_NORMAL = 1;
+		public static readonly int THREAD_PRIORITY_HIGHEST = 2;
+		public static readonly int THREAD_PRIORITY_TIME_CRITICAL = 15;
 	}
 
 	/// <summary>
