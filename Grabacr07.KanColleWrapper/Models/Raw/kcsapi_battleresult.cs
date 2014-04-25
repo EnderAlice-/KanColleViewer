@@ -14,9 +14,6 @@ namespace Grabacr07.KanColleWrapper.Models.Raw
 		public int api_quest_level { get; set; }
 		public kcsapi_enemyinfo api_enemy_info { get; set; }
 		public kcsapi_getship api_get_ship { get; set; }
-
-		public int[] api_get_ship_exp { get; set; }
-		public int api_mvp { get; set; }
 	}
 
 	public class kcsapi_getship
@@ -27,8 +24,6 @@ namespace Grabacr07.KanColleWrapper.Models.Raw
 
 	public class kcsapi_enemyinfo
 	{
-		public string api_level { get; set; }
-		public string api_rank { get; set; }
 		public string api_deck_name { get; set; }
 	}
 	// ReSharper restore InconsistentNaming

@@ -170,7 +170,6 @@ namespace Grabacr07.KanColleViewer.ViewModels.Catalogs
 		}
 
 
-
 		public void SetShipType(int[] ids)
 		{
 			this.ShipTypes.ForEach(x => x.Set(ids.Any(id => x.Id == id)));
