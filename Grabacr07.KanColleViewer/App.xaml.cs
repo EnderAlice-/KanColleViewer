@@ -59,23 +59,21 @@ namespace Grabacr07.KanColleViewer
 			#region アフィニティ マスクの変更
 			try
 			{
-				var keyState = User32.GetAsyncKeyState(User32.VK_SHIFT);
-				if(((uint)keyState & 0x8000U) != 0)
+				if(User32.IsKeyPressed(VirtualKey.VK_SHIFT))
 				{
 					var myThread = Kernel32.GetCurrentThread();
-
 					var processorNumber = new PROCESSOR_NUMBER(0, 0);
 					if(Kernel32.GetThreadIdealProcessorEx(myThread, ref processorNumber))
 					{
 						var groupAffinity = new GROUP_AFFINITY(processorNumber.Group, (UIntPtr)(1 << processorNumber.Number));
 						Kernel32.SetThreadGroupAffinity(myThread, ref groupAffinity);
 
-//#if _DEBUG
+#if _DEBUG
 						MessageBox.Show("アフィニティマスクを変更しました。\nプロセッサ グループ:" + processorNumber.Group + "\nプロセッサ番号:" + processorNumber.Number, "デバッグ", MessageBoxButton.OK, MessageBoxImage.Information);
-//#endif
+#endif
 					}
 
-					Kernel32.SetThreadPriority(myThread, Kernel32.THREAD_PRIORITY_HIGHEST);
+					//Kernel32.SetThreadPriority(myThread, Kernel32.THREAD_PRIORITY_HIGHEST);
 				}
 			}
 			catch(Exception ex)
