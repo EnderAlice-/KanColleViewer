@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Grabacr07.KanColleWrapper.Internal;
 using Grabacr07.KanColleWrapper.Models;
@@ -35,16 +34,18 @@ namespace Grabacr07.KanColleWrapper
 
 		#endregion
 
+
 		internal Dockyard(KanColleProxy proxy)
 		{
 			this.Docks = new MemberTable<BuildingDock>();
 
-			proxy.ApiSessionSource.Where(x => x.PathAndQuery == "/kcsapi/api_get_member/kdock")
-				.TryParse<kcsapi_kdock[]>()
-				.Subscribe(this.Update);
+			proxy.api_get_member_kdock.TryParse<kcsapi_kdock[]>().Subscribe(x => this.Update(x.Data));
+			proxy.api_req_kousyou_getship.TryParse<kcsapi_kdock_getship>().Subscribe(x => this.GetShip(x.Data));
+			proxy.api_req_kousyou_createship_speedchange.TryParse().Subscribe(this.ChangeSpeed);
 		}
 
-		private void Update(kcsapi_kdock[] source)
+
+		internal void Update(kcsapi_kdock[] source)
 		{
 			if (this.Docks.Count == source.Length)
 			{
@@ -58,6 +59,26 @@ namespace Grabacr07.KanColleWrapper
 			{
 				this.Docks.ForEach(x => x.Value.Dispose());
 				this.Docks = new MemberTable<BuildingDock>(source.Select(x => new BuildingDock(x)));
+			}
+		}
+
+		private void GetShip(kcsapi_kdock_getship source)
+		{
+			this.Update(source.api_kdock);
+		}
+
+		private void ChangeSpeed(SvData svd)
+		{
+			try
+			{
+				var dock = this.Docks[int.Parse(svd.Request["api_kdock_id"])];
+				var highspeed = svd.Request["api_highspeed"] == "1";
+
+				if (highspeed) dock.Finish();
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine("高速建造材使用の解析に失敗しました: {0}", ex);
 			}
 		}
 	}
