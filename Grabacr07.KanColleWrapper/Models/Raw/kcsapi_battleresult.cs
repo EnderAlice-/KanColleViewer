@@ -31,12 +31,14 @@ namespace Grabacr07.KanColleWrapper.Models.Raw
 		public int api_get_exmap_rate { get; set; }
 		public int api_get_exmap_useitem_id { get; set; }
 	}
+
 	public class kcsapi_battleresult_enemyinfo
 	{
 		public string api_level { get; set; }
 		public string api_rank { get; set; }
 		public string api_deck_name { get; set; }
 	}
+
 	public class kcsapi_battleresult_getship
 	{
 		public int api_ship_id { get; set; }
