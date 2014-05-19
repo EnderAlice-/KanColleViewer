@@ -89,12 +89,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="Counter.cs" />
     <Compile Include="Dockyard.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Itemyard.cs" />
     <Compile Include="Models\Raw\kcsapi_destroyitem2.cs" />
     <Compile Include="Models\Raw\kcsapi_destroyship.cs" />
     <Compile Include="Models\Raw\kcsapi_kdock_getship.cs" />
+    <Compile Include="Models\Raw\kcsapi_mission_result.cs" />
     <Compile Include="Models\Raw\kcsapi_powerup.cs" />
     <Compile Include="Organization.cs" />
     <Compile Include="KanColleProxy.Endpoints.cs">
