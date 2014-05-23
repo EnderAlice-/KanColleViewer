@@ -133,6 +133,7 @@
     <Reference Include="System.XML" />
     <Reference Include="Windows">
       <HintPath>C:\Program Files (x86)\Windows Kits\8.0\References\CommonConfiguration\Neutral\Windows.winmd</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
