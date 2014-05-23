@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using Grabacr07.KanColleViewer.Composition;
 using Grabacr07.KanColleViewer.Models;
 using Grabacr07.KanColleViewer.ViewModels;
 using Grabacr07.KanColleViewer.Views;
@@ -38,7 +39,7 @@ namespace Grabacr07.KanColleViewer
 			ProductInfo = new ProductInfo();
 
 			Settings.Load();
-			WindowsNotification.Notifier.Initialize();
+			PluginHost.Instance.Initialize();
 			Helper.SetRegistryFeatureBrowserEmulation();
 
 			KanColleClient.Current.Proxy.Startup(AppSettings.Default.LocalProxyPort);
@@ -88,7 +89,7 @@ namespace Grabacr07.KanColleViewer
 
 			KanColleClient.Current.Proxy.Shutdown();
 
-			WindowsNotification.Notifier.Dispose();
+			PluginHost.Instance.Dispose();
 			Settings.Current.Save();
 		}
 

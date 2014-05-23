@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Grabacr07.KanColleViewer.Models;
+using Grabacr07.KanColleViewer.Composition;
 using Grabacr07.KanColleViewer.Properties;
 using Grabacr07.KanColleWrapper.Models;
 using Livet;
 using Livet.EventListeners;
-using Livet.Messaging.Windows;
 
 namespace Grabacr07.KanColleViewer.ViewModels.Contents.Docks
 {
@@ -90,7 +89,8 @@ namespace Grabacr07.KanColleViewer.ViewModels.Contents.Docks
 			{
 				if (this.IsNotifyCompleted)
 				{
-					WindowsNotification.Notifier.Show(
+					PluginHost.Instance.GetNotifier().Show(
+						NotifyType.Build,
 						Resources.Dockyard_NotificationMessage_Title,
 						string.Format(
 								Resources.Dockyard_NotificationMessage,
