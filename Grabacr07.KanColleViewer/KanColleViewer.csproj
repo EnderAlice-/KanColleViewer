@@ -54,18 +54,8 @@
   <PropertyGroup>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
   </PropertyGroup>
-	<PropertyGroup>
-		<ApplicationManifest>App.manifest</ApplicationManifest>
-	</PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28beta%29|AnyCPU'">
-    <OutputPath>bin\Release %28beta%29\</OutputPath>
-    <DefineConstants>TRACE;BETA</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
+  <PropertyGroup>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoreAudioApi, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -77,15 +67,6 @@
     </Reference>
     <Reference Include="Livet.Extensions">
       <HintPath>..\packages\LivetExtensions.1.1.0.0\lib\net45\Livet.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroRadiance">
-      <HintPath>..\assemblies\MetroRadiance.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroRadiance.Chrome">
-      <HintPath>..\assemblies\MetroRadiance.Chrome.dll</HintPath>
-    </Reference>
-    <Reference Include="MetroRadiance.Core">
-      <HintPath>..\assemblies\MetroRadiance.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -542,9 +523,21 @@
       <Project>{21b4ad15-d9fa-4873-bfad-1eeefbc6c264}</Project>
       <Name>MetroRadiance.Chrome</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetroRadiance\MetroRadiance.Chrome\MetroRadiance.Chrome.csproj">
+      <Project>{21b4ad15-d9fa-4873-bfad-1eeefbc6c264}</Project>
+      <Name>MetroRadiance.Chrome</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetroRadiance\MetroRadiance.Core\MetroRadiance.Core.csproj">
       <Project>{a6b0a741-5be0-479d-b813-e65672350057}</Project>
       <Name>MetroRadiance.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroRadiance\MetroRadiance.Core\MetroRadiance.Core.csproj">
+      <Project>{a6b0a741-5be0-479d-b813-e65672350057}</Project>
+      <Name>MetroRadiance.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroRadiance\MetroRadiance\MetroRadiance.csproj">
+      <Project>{0af0b9ff-d981-4d0f-a41f-c3ab6fe2f16d}</Project>
+      <Name>MetroRadiance</Name>
     </ProjectReference>
     <ProjectReference Include="..\MetroRadiance\MetroRadiance\MetroRadiance.csproj">
       <Project>{0af0b9ff-d981-4d0f-a41f-c3ab6fe2f16d}</Project>
