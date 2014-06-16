@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Grabacr07.KanColleViewer.Models.Data.Xml;
 using Livet;
+using MetroRadiance;
 using MetroRadiance.Core;
 
 namespace Grabacr07.KanColleViewer.Models
@@ -408,6 +409,37 @@ namespace Grabacr07.KanColleViewer.Models
 				if (this._EnableLogging != value)
 				{
 					this._EnableLogging = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
+
+		#endregion
+
+		#region ColorTheme 変更通知プロパティ
+
+		private Theme _ColorTheme;
+
+		public Theme ColorTheme
+		{
+			get
+			{
+				switch(this._ColorTheme)
+				{
+				case Theme.Dark:
+				case Theme.Light:
+					break;
+				default:
+					this._ColorTheme = Theme.Dark;
+					break;
+				}
+				return this._ColorTheme;
+			}
+			set
+			{
+				if (this._ColorTheme != value)
+				{
+					this._ColorTheme = value;
 					this.RaisePropertyChanged();
 				}
 			}

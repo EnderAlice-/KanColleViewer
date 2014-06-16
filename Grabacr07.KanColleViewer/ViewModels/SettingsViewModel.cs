@@ -199,40 +199,18 @@ namespace Grabacr07.KanColleViewer.ViewModels
 
 		#endregion
 
-		#region IsDarkTheme 変更通知プロパティ
+		#region ColorTheme 変更通知プロパティ
 
-		private bool _IsDarkTheme;
-
-		public bool IsDarkTheme
+		public Theme ColorTheme
 		{
-			get { return this._IsDarkTheme; }
+			get { return Settings.Current.ColorTheme; }
 			set
 			{
-				if (this._IsDarkTheme != value)
+				if (Settings.Current.ColorTheme != value)
 				{
-					this._IsDarkTheme = value;
+					Settings.Current.ColorTheme = value;
 					this.RaisePropertyChanged();
-					if (value) ThemeService.Current.ChangeTheme(Theme.Dark);
-				}
-			}
-		}
-
-		#endregion
-
-		#region IsLightTheme 変更通知プロパティ
-
-		private bool _IsLightTheme;
-
-		public bool IsLightTheme
-		{
-			get { return this._IsLightTheme; }
-			set
-			{
-				if (this._IsLightTheme != value)
-				{
-					this._IsLightTheme = value;
-					this.RaisePropertyChanged();
-					if (value) ThemeService.Current.ChangeTheme(Theme.Light);
+					ThemeService.Current.ChangeTheme(value);
 				}
 			}
 		}
@@ -350,8 +328,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 				(sender, args) => this.RaisePropertyChanged(args.PropertyName),
 			});
 
-			this._IsDarkTheme = ThemeService.Current.Theme == Theme.Dark;
-			this._IsLightTheme = ThemeService.Current.Theme == Theme.Light;
+			ThemeService.Current.ChangeTheme(Settings.Current.ColorTheme);
 
 			var zoomFactor = new BrowserZoomFactor { Current = Settings.Current.BrowserZoomFactor };
 			this.CompositeDisposable.Add(new PropertyChangedEventListener(zoomFactor)
