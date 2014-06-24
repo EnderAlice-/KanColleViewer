@@ -39,6 +39,11 @@ namespace Grabacr07.KanColleViewer.ViewModels
 			this.CreateVolumeInstanceIfNull();
 		}
 
+		~VolumeViewModel()
+		{
+			this.volume = null;
+		}
+
 		public void ToggleMute()
 		{
 			if (this.CreateVolumeInstanceIfNull())
@@ -53,7 +58,7 @@ namespace Grabacr07.KanColleViewer.ViewModels
 			{
 				try
 				{
-					this.volume = Volume.GetInstance();
+					this.volume = new Volume();
 					this.CompositeDisposable.Add(new PropertyChangedEventListener(this.volume)
 					{
 						{ "IsMute", (sender, args) => this.IsMute = this.volume.IsMute },

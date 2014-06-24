@@ -14,6 +14,8 @@ namespace Grabacr07.KanColleViewer.Models
 	{
 		private SimpleAudioVolume simpleAudioVolume;
 
+		private AudioSessionControl session;
+
 		#region IsMute 変更通知プロパティ
 
 		private bool _IsMute;
@@ -53,11 +55,28 @@ namespace Grabacr07.KanColleViewer.Models
 		#endregion
 
 
-		private Volume() { }
-
-		public static Volume GetInstance()
+		public Volume()
 		{
-			var volume = new Volume();
+			this.session = getSessionForCurrentProcess();
+			if (this.session == null)
+			{
+				throw new Exception("Session is not found.");
+			}
+
+			this.simpleAudioVolume = session.SimpleAudioVolume;
+			this.IsMute = session.SimpleAudioVolume.Mute;
+			this.Value = (int)(session.SimpleAudioVolume.MasterVolume * 100);
+
+			session.RegisterAudioSessionNotification(this);
+		}
+
+		~Volume()
+		{
+			this.session.UnregisterAudioSessionNotification(this);
+		}
+
+		private static AudioSessionControl getSessionForCurrentProcess()
+		{
 			var processId = Process.GetCurrentProcess().Id;
 
 			var devenum = new MMDeviceEnumerator();
@@ -68,16 +87,11 @@ namespace Grabacr07.KanColleViewer.Models
 				var session = device.AudioSessionManager.Sessions[i];
 				if (session.ProcessID == processId)
 				{
-					volume.simpleAudioVolume = session.SimpleAudioVolume;
-					volume.IsMute = session.SimpleAudioVolume.Mute;
-					volume.Value = (int)(session.SimpleAudioVolume.MasterVolume * 100);
-					// ToDo: ↓ これ入れて通知受けるようにすると、通知が走ったタイミングでアプリが落ちる。意味不明。誰か助けて。
-					//session.RegisterAudioSessionNotification(volume);
-					return volume;
+					return session;
 				}
 			}
 
-			throw new Exception("Session is not found.");
+			return null;
 		}
 
 		public void ToggleMute()
