@@ -72,7 +72,10 @@ namespace Grabacr07.KanColleViewer.Models
 
 		~Volume()
 		{
-			this.session.UnregisterAudioSessionNotification(this);
+			if (session != null)
+			{
+				this.session.UnregisterAudioSessionNotification(this);
+			}
 		}
 
 		private static AudioSessionControl getSessionForCurrentProcess()
