@@ -113,8 +113,7 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Border ClipToBounds="True"
-				Width="{Binding ElementName=WebBrowser, Path=Width}">
+		<Border ClipToBounds="True">
 			<views:BrowserNavigator Margin="6,-5,6,10"
 									VerticalAlignment="Top" />
 		</Border>
@@ -307,7 +306,7 @@
 				<ScrollViewer VerticalScrollBarVisibility="Auto">
 					<TabControl Width="640"
 								HorizontalAlignment="Left"
-								Style="{StaticResource TabControlStyleKey}">
+								Style="{StaticResource VerticalTabControlStyleKey}">
 						<TabItem>
 							<TabItem.Header>
 								<TextBlock Text="{Binding Resources.Settings_Window, Source={x:Static models:ResourceService.Current}, Mode=OneWay}"
