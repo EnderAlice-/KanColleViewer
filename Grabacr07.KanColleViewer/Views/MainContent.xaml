@@ -16,7 +16,6 @@
 			 xmlns:contents="clr-namespace:Grabacr07.KanColleViewer.Views.Contents"
 			 xmlns:vm="clr-namespace:Grabacr07.KanColleViewer.ViewModels"
 			 xmlns:vmContents="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents"
-			 xmlns:vmDocks="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents.Docks"
 			 xmlns:vmFleets="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Contents.Fleets"
 			 xmlns:settings="clr-namespace:Grabacr07.KanColleViewer.Views.Settings"
 			 xmlns:devVm="clr-namespace:Grabacr07.KanColleViewer.ViewModels.Dev"
@@ -119,22 +118,45 @@
 								   Margin="0,0,0,20" />
 				</Grid>
 			</ScrollViewer>
-			
-			<ContentControl Grid.Column="1"
-							DataContext="{Binding SelectedItem}"
-							Content="{Binding}">
-				<ContentControl.Resources>
+
+			<Grid Grid.Column="1">
+				<ItemsControl ItemsSource="{Binding TabItems}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<Grid />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type vm:TabItemViewModel}">
+							<ContentControl Content="{Binding}"
+											Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+				<ItemsControl ItemsSource="{Binding SystemTabItems}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<Grid />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type vm:TabItemViewModel}">
+							<ContentControl Content="{Binding}"
+											Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+				<Grid.Resources>
 					<DataTemplate DataType="{x:Type vmContents:OverviewViewModel}">
 						<contents:Overview />
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type vmFleets:FleetsViewModel}">
 						<contents:Fleets />
 					</DataTemplate>
-					<DataTemplate DataType="{x:Type vmDocks:RepairyardViewModel}">
-						<contents:Repairyard />
-					</DataTemplate>
-					<DataTemplate DataType="{x:Type vmDocks:DockyardViewModel}">
-						<contents:Dockyard />
+					<DataTemplate DataType="{x:Type vmContents:ShipyardViewModel}">
+						<contents:Shipyard />
 					</DataTemplate>
 					<DataTemplate DataType="{x:Type vmContents:QuestsViewModel}">
 						<contents:Quests />
@@ -151,8 +173,8 @@
 					<DataTemplate DataType="{x:Type devVm:DebugTabViewModel}">
 						<dev:DebugTab />
 					</DataTemplate>
-				</ContentControl.Resources>
-			</ContentControl>
+				</Grid.Resources>
+			</Grid>
 		</Grid>
 	</Grid>
 </UserControl>
