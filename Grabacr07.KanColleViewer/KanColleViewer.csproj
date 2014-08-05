@@ -476,8 +476,6 @@
     </Compile>
     <Compile Include="Win32\IViewObject.cs" />
     <Compile Include="Win32\Kernel32.cs" />
-    <Compile Include="ViewModels\Contents\Fleets\ReSortieBarViewModel.cs" />
-    <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="ViewModels\Contents\Fleets\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Contents\Fleets\FleetViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
