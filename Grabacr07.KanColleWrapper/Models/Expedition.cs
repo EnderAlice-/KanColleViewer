@@ -129,7 +129,7 @@ namespace Grabacr07.KanColleWrapper.Models
 			else
 			{
 				this.Id = (int)rawData[1];
-				this.Mission = KanColleClient.Current.Master.Missions[this.Id] ?? Mission.Unknown;
+				this.Mission = KanColleClient.Current.Master.Missions[this.Id];
 				this.ReturnTime = Definitions.UnixEpoch.AddMilliseconds(rawData[2]);
 				this.UpdateCore();
 			}
@@ -139,12 +139,14 @@ namespace Grabacr07.KanColleWrapper.Models
 		{
 			if (this.ReturnTime.HasValue)
 			{
-				var remaining = this.ReturnTime.Value - TimeSpan.FromSeconds(KanColleClient.Current.Settings.NotificationShorteningTime) - DateTimeOffset.Now;
+				var remaining = this.ReturnTime.Value - DateTimeOffset.Now;
 				if (remaining.Ticks < 0) remaining = TimeSpan.Zero;
 
 				this.Remaining = remaining;
 
-				if (!this.notificated && this.Returned != null && remaining.Ticks <= 0)
+				if (!this.notificated
+					&& this.Returned != null
+					&& remaining <= TimeSpan.FromSeconds(KanColleClient.Current.Settings.NotificationShorteningTime))
 				{
 					this.Returned(this, new ExpeditionReturnedEventArgs(this.fleet.Name));
 					this.notificated = true;

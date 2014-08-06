@@ -94,8 +94,9 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid MinWidth="100"
+			<ScrollViewer VerticalScrollBarVisibility="Auto"
+						  PanningMode="Both">
+				<Grid MinWidth="90"
 					  Background="{DynamicResource ActiveBackgroundBrushKey}">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
