@@ -220,6 +220,17 @@
 									   Margin="0,12"
 									   Style="{DynamicResource SeparatorRectangleStyleKey}" />
 
+							<TextBlock FontFamily="Segoe UI">
+								<Run Text="Customize:" />
+								<metro2:HyperlinkEx Uri="https://twitter.com/a1lic/">
+									<Run Text="@a1lic" />
+								</metro2:HyperlinkEx>
+							</TextBlock>
+
+							<Rectangle Height="1"
+									   Margin="0,12"
+									   Style="{DynamicResource SeparatorRectangleStyleKey}" />
+
 							<TextBlock FontFamily="Segoe UI"
 									   TextWrapping="Wrap">
 								<Run Text="{Binding Source={x:Static root:App.ProductInfo}, Path=Copyright, Mode=OneWay}" />
@@ -237,17 +248,6 @@
 								<Run Text="under" />
 								<metro2:HyperlinkEx Uri="https://github.com/Grabacr07/KanColleViewer/blob/master/LICENSE.txt">
 									<Run Text="The MIT License." />
-								</metro2:HyperlinkEx>
-							</TextBlock>
-
-							<Rectangle Height="1"
-									   Margin="0,12"
-									   Style="{DynamicResource SeparatorRectangleStyleKey}" />
-
-							<TextBlock FontFamily="Segoe UI">
-								<Run Text="Customize:" />
-								<metro2:HyperlinkEx Uri="https://twitter.com/a1lic/">
-									<Run Text="@a1lic" />
 								</metro2:HyperlinkEx>
 							</TextBlock>
 						</StackPanel>
