@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using Fiddler;
 using Grabacr07.KanColleWrapper.Win32;
@@ -64,6 +65,7 @@ namespace Grabacr07.KanColleWrapper
 		{
 			FiddlerApplication.Startup(proxy, false, true);
 			FiddlerApplication.BeforeRequest += this.SetUpstreamProxyHandler;
+			FiddlerApplication.BeforeRequest += this.SetCookieIfNoCookie;
 
 			SetIESettings("localhost:" + proxy);
 
@@ -75,6 +77,7 @@ namespace Grabacr07.KanColleWrapper
 		{
 			this.compositeDisposable.Dispose();
 
+			FiddlerApplication.BeforeRequest -= this.SetCookieIfNoCookie;
 			FiddlerApplication.BeforeRequest -= this.SetUpstreamProxyHandler;
 			FiddlerApplication.Shutdown();
 		}
@@ -128,6 +131,55 @@ namespace Grabacr07.KanColleWrapper
 		{
 			// 「http://www.dmm.com:433/」の場合もあり、これは Session.isHTTPS では判定できない
 			return session.isHTTPS || session.fullUrl.StartsWith("https:") || session.fullUrl.Contains(":443");
+		}
+
+		/// <summary>
+		/// Cookie が設定されていない場合、Internet Explorer の Cookie キャッシュから Cookie を読み込んで設定します。
+		/// </summary>
+		/// <param name="requestingSession">通信を行おうとしているセッション。</param>
+		private void SetCookieIfNoCookie(Session requestingSession)
+		{
+			if (!requestingSession.url.StartsWith("www.dmm.com/"))
+			{
+				// DMM.COM 以外の URL だった場合は何もしない
+				return;
+			}
+
+			var headers = requestingSession.oRequest.headers;
+			bool isSessionSet = false;
+
+			// Cookie にセッション ID がある場合は何もしないように、フラグを立てる
+			if (headers.Exists("Cookie"))
+			{
+				var cookies = headers["Cookie"];
+				var cookieList = cookies.Split(' ');
+				foreach (var cookie in cookieList)
+				{
+					if (cookie.StartsWith("INT_SESID"))
+					{
+						isSessionSet = true;
+						break;
+					}
+				}
+			}
+
+			// フラグが立たなかった場合、Internet Explorer の Cookie で置き換える
+			if(!isSessionSet)
+			{
+				uint cookieStringSize = 4096;
+				var cookieString = new StringBuilder((int)cookieStringSize);
+				if(NativeMethods.InternetGetCookieEx(requestingSession.fullUrl, IntPtr.Zero, cookieString, ref cookieStringSize, 0, IntPtr.Zero))
+				{
+					if(headers.Exists("Cookie"))
+					{
+						headers["Cookie"] = cookieString.ToString();
+					}
+					else
+					{
+						headers.Add("Cookie", cookieString.ToString());
+					}
+				}
+			}
 		}
 	}
 }
