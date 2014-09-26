@@ -380,7 +380,7 @@
 						</WrapPanel>
 					</Border>
 
-					<Border BorderThickness="1"
+					<!--<Border BorderThickness="1"
 							BorderBrush="{DynamicResource BorderBrushKey}"
 							Margin="0,8,0,0"
 							Padding="5">
@@ -400,7 +400,7 @@
 									  IsChecked="{Binding Midway}"
 									  Margin="10,0" />
 						</WrapPanel>
-					</Border>
+					</Border>-->
 				</StackPanel>
 			</Expander>
 
@@ -672,7 +672,7 @@
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
 
-							<GridViewColumn Width="65">
+							<!--<GridViewColumn Width="65">
 								<GridViewColumn.Header>
 									<TextBlock Text="出撃海域" />
 								</GridViewColumn.Header>
@@ -707,7 +707,7 @@
 										</DataTemplate.Triggers>
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
-							</GridViewColumn>
+							</GridViewColumn>-->
 
 							<GridViewColumn Width="110">
 								<GridViewColumn.Header>
