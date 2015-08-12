@@ -5,42 +5,29 @@ using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
 namespace Grabacr07.KanColleViewer.Win32
 {
 	// ReSharper disable InconsistentNaming
-	[StructLayout(LayoutKind.Explicit, Size = 80)]
-	internal struct INTERNET_CACHE_ENTRY_INFOA
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct INTERNET_CACHE_ENTRY_INFO
 	{
-		[FieldOffset(0)]
 		public uint dwStructSize;
-		[FieldOffset(4)]
-		public IntPtr lpszSourceUrlName;
-		[FieldOffset(8)]
-		public IntPtr lpszLocalFileName;
-		[FieldOffset(12)]
+		[MarshalAs(UnmanagedType.LPTStr)]
+		public string lpszSourceUrlName;
+		[MarshalAs(UnmanagedType.LPTStr)]
+		public string lpszLocalFileName;
 		public uint CacheEntryType;
-		[FieldOffset(16)]
 		public uint dwUseCount;
-		[FieldOffset(20)]
 		public uint dwHitRate;
-		[FieldOffset(24)]
 		public uint dwSizeLow;
-		[FieldOffset(28)]
 		public uint dwSizeHigh;
-		[FieldOffset(32)]
 		public FILETIME LastModifiedTime;
-		[FieldOffset(40)]
 		public FILETIME ExpireTime;
-		[FieldOffset(48)]
 		public FILETIME LastAccessTime;
-		[FieldOffset(56)]
 		public FILETIME LastSyncTime;
-		[FieldOffset(64)]
-		public IntPtr lpHeaderInfo;
-		[FieldOffset(68)]
+		[MarshalAs(UnmanagedType.LPTStr)]
+		public string lpHeaderInfo;
 		public uint dwHeaderInfoSize;
-		[FieldOffset(72)]
-		public IntPtr lpszFileExtension;
-		[FieldOffset(76)]
+		[MarshalAs(UnmanagedType.LPTStr)]
+		public string lpszFileExtension;
 		public uint dwReserved;
-		[FieldOffset(76)]
 		public uint dwExemptDelta;
 	}
 

@@ -12,9 +12,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Initiates the enumeration of the cache groups in the Internet cache
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "FindFirstUrlCacheGroup",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern IntPtr FindFirstUrlCacheGroup(
 			int dwFlags,
 			int dwFilter,
@@ -26,9 +24,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Retrieves the next cache group in a cache group enumeration
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "FindNextUrlCacheGroup",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern bool FindNextUrlCacheGroup(
 			IntPtr hFind,
 			ref long lpGroupId,
@@ -37,9 +33,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Releases the specified GROUPID and any associated state in the cache index file
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "DeleteUrlCacheGroup",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern bool DeleteUrlCacheGroup(
 			long groupId,
 			int dwFlags,
@@ -48,9 +42,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Begins the enumeration of the Internet cache
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "FindFirstUrlCacheEntryA",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern IntPtr FindFirstUrlCacheEntry(
 			[MarshalAs(UnmanagedType.LPTStr)] string lpszUrlSearchPattern,
 			IntPtr lpFirstCacheEntryInfo,
@@ -59,9 +51,7 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Retrieves the next entry in the Internet cache
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "FindNextUrlCacheEntryA",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern bool FindNextUrlCacheEntry(
 			IntPtr hFind,
 			IntPtr lpNextCacheEntryInfo,
@@ -70,10 +60,8 @@ namespace Grabacr07.KanColleViewer.Win32
 		// For PInvoke: Removes the file that is associated with the source name from the cache, if the file exists
 		[DllImport(@"wininet",
 			SetLastError = true,
-			CharSet = CharSet.Auto,
-			EntryPoint = "DeleteUrlCacheEntryA",
-			CallingConvention = CallingConvention.StdCall)]
+			CharSet = CharSet.Auto)]
 		public static extern bool DeleteUrlCacheEntry(
-			IntPtr lpszUrlName);
+			string lpszUrlName);
 	}
 }

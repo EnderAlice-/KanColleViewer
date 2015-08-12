@@ -107,8 +107,8 @@ namespace Grabacr07.KanColleViewer.Models
 
 			while (true)
 			{
-				var internetCacheEntry = (INTERNET_CACHE_ENTRY_INFOA)Marshal.PtrToStructure(
-					cacheEntryInfoBuffer, typeof(INTERNET_CACHE_ENTRY_INFOA));
+				var internetCacheEntry = (INTERNET_CACHE_ENTRY_INFO)Marshal.PtrToStructure(
+					cacheEntryInfoBuffer, typeof(INTERNET_CACHE_ENTRY_INFO));
 				cacheEntryInfoBufferSizeInitial = cacheEntryInfoBufferSize;
 
 				var type = internetCacheEntry.CacheEntryType;
